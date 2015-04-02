@@ -4,10 +4,13 @@ class CostsController < ApplicationController
   # GET /costs
   # GET /costs.json
   def index
-    @month3 = Cost.where(['cost_date like ?','2015-03%']).order('cost_date desc')
-    @money3 = Cost.where(['cost_date like ?','2015-03%']).sum(:money)
-    @month4 = Cost.where(['cost_date like ?','2015-04%']).order('cost_date desc')
-    @money4 = Cost.where(['cost_date like ?','2015-04%']).sum(:money)
+      @puts=['01','02','03','04','05','06','07','08','09','10','11','12']
+      @month=[]
+      @money=[]
+      (0..11).each do |i|
+         @month[i] = Cost.where(['cost_date like ?','2015-'+@puts[i]+'%']).order('cost_date desc')
+         @money[i] = Cost.where(['cost_date like ?','2015-'+@puts[i]+'%']).sum(:money)
+      end
   end
 
   # GET /costs/1
