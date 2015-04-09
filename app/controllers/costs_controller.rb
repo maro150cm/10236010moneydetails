@@ -8,8 +8,11 @@ class CostsController < ApplicationController
       @month=[]
       @money=[]
       (0..11).each do |i|
-         @month[i] = Cost.where(['cost_date like ?','2015-'+@puts[i]+'%']).order('cost_date desc')
-         @money[i] = Cost.where(['cost_date like ?','2015-'+@puts[i]+'%']).sum(:money)
+         @month[i] = Cost.where(['cost_date between ? and ?','2015-'+@puts[i]+'-01','2015-'+@puts[i]+'-31']).order('cost_date desc')
+         @money[i] = Cost.where(['cost_date between ? and ?','2015-'+@puts[i]+'-01','2015-'+@puts[i]+'-31']).sum(:money)
+         # Cost.where(['cost_date like ?','2015-'+@puts[i]+'%'])
+         # like 就只能用字串
+         # sqlite 因為內部其實都是用 text 實作才可以讓你Like那樣用 但那不是好的用法 
       end
   end
 
