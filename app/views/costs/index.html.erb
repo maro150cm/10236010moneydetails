@@ -3,7 +3,7 @@
 <%= link_to 'New Cost', new_cost_path ,class:'btn btn-success' %><br/>
 <div role="tabpanel">  
   <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#1" role="tab" data-toggle="tab">1</a></li>
+      <li role="presentation" class="active"><a href="#1" role="tab" data-toggle="tab">01</a></li>
       <% (1..11).each do |i| %>
         <li role="presentation"><a href="#<%= @puts[i] %>" role="tab" data-toggle="tab"><%= @puts[i] %></a></li>
       <% end %> 
