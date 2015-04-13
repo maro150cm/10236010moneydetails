@@ -1,35 +1,75 @@
 <p id="notice"><%= notice %></p>
 
 <%= link_to 'New Cost', new_cost_path ,class:'btn btn-success' %><br/>
-  <% (0..11).each do |i| %>
-    <h1>Month:<%= @puts[i] %></h1>
-    <table class='table table-hover'>
-      <thead>
-        <tr>
-          <th>日期</th>
-          <th>內容</th>
-          <th>金額</th>
-          <th colspan="2"></th>
-        </tr>
-      </thead>
+<div role="tabpanel">  
+  <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#1" role="tab" data-toggle="tab">1</a></li>
+      <% (1..11).each do |i| %>
+        <li role="presentation"><a href="#<%= @puts[i] %>" role="tab" data-toggle="tab"><%= @puts[i] %></a></li>
+      <% end %> 
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="1">
+        <table class='table table-hover'>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>內容</th>
+              <th>金額</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <% @month[i].each do |month| %>
-          <tr>
-            <td><%= month.cost_date %></td>
-            <td><%= month.item %></td>
-            <td><%= month.money %></td>
-            <td><%= link_to 'Edit', edit_cost_path(month) %></td>
-            <td><%= link_to 'Destroy', month, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      </tbody>
-        <tr>
-          <td></td>
-          <td>Total:</td>
-          <td><%= @money[i] %></td>
-          <td colspan='2'></td>
-        </tr>
-    </table>
-  <% end %>  
+          <tbody>
+            <% @month[0].each do |month| %>
+              <tr>
+                <td><%= month.cost_date %></td>
+                <td><%= month.item %></td>
+                <td><%= month.money %></td>
+                <td><%= link_to 'Edit', edit_cost_path(month) %></td>
+                <td><%= link_to 'Destroy', month, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+            <tr>
+              <td></td>
+              <td>Total:</td>
+              <td><%= @money[0] %></td>
+              <td colspan='2'></td>
+            </tr>
+        </table>
+    </div>
+    <% (1..11).each do |i| %>
+      <div role="tabpanel" class="tab-pane" id="<%= @puts[i] %>">
+        <table class='table table-hover'>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>內容</th>
+              <th>金額</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @month[i].each do |month| %>
+              <tr>
+                <td><%= month.cost_date %></td>
+                <td><%= month.item %></td>
+                <td><%= month.money %></td>
+                <td><%= link_to 'Edit', edit_cost_path(month) %></td>
+                <td><%= link_to 'Destroy', month, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+            <tr>
+              <td></td>
+              <td>Total:</td>
+              <td><%= @money[i] %></td>
+              <td colspan='2'></td>
+            </tr>
+        </table>
+      </div>
+    <% end %>
+  </div>
 </div>
