@@ -11,6 +11,7 @@ class CostsController < ApplicationController
          @month[i] = Cost.where(['cost_date between ? and ?','2015-'+@puts[i]+'-01','2015-'+@puts[i]+'-31']).order('cost_date desc')
          @money[i] = Cost.where(['cost_date between ? and ?','2015-'+@puts[i]+'-01','2015-'+@puts[i]+'-31']).sum(:money)
       end
+      @re_mon = params[:re_mon]
   end
 
   # GET /costs/1
@@ -31,10 +32,9 @@ class CostsController < ApplicationController
   # POST /costs.json
   def create
     @cost = Cost.new(cost_params)
-
     respond_to do |format|
       if @cost.save
-        format.html { redirect_to @cost, notice: 'Cost was successfully created.' }
+        format.html { redirect_to action: :index, re_mon: @cost.cost_date.strftime("%m").to_i-1, notice: 'Cost was successfully created.' }
         format.json { render :show, status: :created, location: @cost }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class CostsController < ApplicationController
   def update
     respond_to do |format|
       if @cost.update(cost_params)
-        format.html { redirect_to @cost, notice: 'Cost was successfully updated.' }
+        format.html { redirect_to action: :index, re_mon: @cost.cost_date.strftime("%m").to_i-1 , notice: 'Cost was successfully updated.' }
         format.json { render :show, status: :ok, location: @cost }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class CostsController < ApplicationController
   def destroy
     @cost.destroy
     respond_to do |format|
-      format.html { redirect_to costs_url, notice: 'Cost was successfully destroyed.' }
+      format.html { redirect_to action: :index, re_mon: @cost.cost_date.strftime("%m").to_i-1, notice: 'Cost was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

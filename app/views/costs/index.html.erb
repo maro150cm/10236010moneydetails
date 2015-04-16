@@ -1,4 +1,9 @@
 <p id="notice"><%= notice %></p>
+<script>
+    $(document).ready(function(){
+       $('.nav li:eq(<%= @re_mon %>) a').tab('show')
+    });
+</script>
 
 <%= link_to 'New Cost', new_cost_path ,class:'btn btn-success' %><br/>
 <div role="tabpanel">  
